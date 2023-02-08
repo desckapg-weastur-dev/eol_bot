@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'pmd'
+    id 'checkstyle'
 }
 
 compileJava.options.encoding='UTF-8'
@@ -22,4 +24,21 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+pmd {
+    consoleOutput=true
+    toolVersion='6.21.0'
+    ruleSets=["category/java/bestpractices.xml", "category/java/codestyle.xml",
+              "category/java/design.xml", "category/java/errorprone.xml",
+              "category/java/multithreading.xml", "category/java/performance.xml",
+              "category/java/security.xml"]
+}
+
+checkstyle {
+    configFile = file("${rootDir}/config/checkstyle/sun_checks.xml")
+}
+
+checkstyleMain {
+    source = 'src/main/java'
 }
