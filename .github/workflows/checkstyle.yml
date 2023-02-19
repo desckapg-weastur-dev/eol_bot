@@ -1,0 +1,19 @@
+name: checkstyle
+
+on:
+  push:
+    branches: ["13-github-actions"]
+  pull_request:
+    branches: ["13-github-actions"]
+
+jobs:
+  checkstyle_job:
+    runs-on: ubuntu-latest
+    name: Checkstyle job
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Run check style
+      uses: nikitasavinov/checkstyle-action@master
+      with:
+        checkstyle_config: 'config/checkstyle/sun_checks.xml'
