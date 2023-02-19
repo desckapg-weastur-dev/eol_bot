@@ -7,9 +7,9 @@ name: pmd
 
 on:
   push:
-    branches: [ "13-github-actions" ]
+    branches: [ "*" ]
   pull_request:
-    branches: [ "13-github-actions" ]
+    branches: [ "*" ] 
   schedule:
     - cron: '45 14 * * 4'
 
