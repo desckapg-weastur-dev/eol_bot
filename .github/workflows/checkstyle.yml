@@ -13,5 +13,5 @@ jobs:
       uses: desckapg-weastur-dev/eol_bot/.github/actions/checkstyle@v0.1
       with:
         sourcePath: 'src/main/java'
-        configFile: 'config/checkstyle/sun_checks.yml'
+        configFile: 'config/checkstyle/sun_checks.xml'
   
