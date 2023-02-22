@@ -1,0 +1,10 @@
+repos:
+-  repo: https://github.com/gherynos/pre-commit-java
+   rev: v0.2.0
+   hooks:
+    - id: pmd
+      args: ["-R", "config/pmd/ruleset.xml"]
+      exclude: /test/
+    - id: checkstyle
+      args: ["-c", "config/checkstyle/sun_checks.xml"]
+      exclude: /test/
