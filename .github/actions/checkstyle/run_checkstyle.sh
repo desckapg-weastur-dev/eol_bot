@@ -1,5 +1,3 @@
 #!/bin/sh -l
 
-cd $GITHUB_WORKSPACE
-
-java -jar /checkstyle.jar -c $2 $1
+java -jar /checkstyle.jar -c $GITHUB_WORKSPACE/$2 $GITHUB_WORKSPACE/$1
