@@ -1,0 +1,13 @@
+name: Checkstyle
+on: [push, pull_request]
+jobs:
+  checkstyle:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Checkstyle process
+      uses: desckapg-weastur-dev/eol_bot/.github/actions/checkstyle@v0.1
+      with:
+        sourcePath: src/main/java
+        configFile: config/checkstyle/sun_checks.yml
+  
