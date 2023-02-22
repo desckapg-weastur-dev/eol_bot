@@ -1,0 +1,21 @@
+name: Checkstyle
+description: Run checkstyle
+inputs:
+  sourcePath:
+    description: Root directory for sources
+    required: true
+  configFile:
+    description: Config path for checkstyle
+    required: true
+outputs:
+  violations:
+    description: Number of violations found
+runs:
+  using: 'docker'
+  main: 'Dockerfile'
+  args:
+    - ${{ inputs.sourcePath }}
+    - ${{ inputs.configFile }}
+branding:
+  icon: code
+  color: white
