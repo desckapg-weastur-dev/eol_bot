@@ -1,5 +1,9 @@
-name: Checkstyle
-on: [push, pull_request]
+name: checkstyle
+on: 
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: ["*"]
 jobs:
   checkstyle:
     runs-on: ubuntu-latest
@@ -8,6 +12,6 @@ jobs:
     - name: Checkstyle process
       uses: desckapg-weastur-dev/eol_bot/.github/actions/checkstyle@v0.1
       with:
-        sourcePath: src/main/java
-        configFile: config/checkstyle/sun_checks.yml
+        sourcePath: 'src/main/java'
+        configFile: 'config/checkstyle/sun_checks.yml'
   
