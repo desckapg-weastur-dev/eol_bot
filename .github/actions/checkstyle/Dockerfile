@@ -6,4 +6,6 @@ RUN wget -O - -q https://github.com/checkstyle/checkstyle/releases/download/chec
 
 COPY run_checkstyle.sh /run_checkstyle.sh
 
+RUN chmod 777 /run_checkstyle.sh
+
 ENTRYPOINT ["/run_checkstyle.sh"]
