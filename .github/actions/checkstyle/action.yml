@@ -7,12 +7,9 @@ inputs:
   configFile:
     description: Config path for checkstyle
     required: true
-outputs:
-  violations:
-    description: Number of violations found
 runs:
   using: 'docker'
-  main: 'Dockerfile'
+  image: 'Dockerfile'
   args:
     - ${{ inputs.sourcePath }}
     - ${{ inputs.configFile }}
