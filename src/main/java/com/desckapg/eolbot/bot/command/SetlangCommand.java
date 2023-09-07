@@ -10,12 +10,15 @@ import org.apache.logging.log4j.Logger;
 
 public class SetlangCommand extends AbstractCommand {
 
+    private final TelegramBot bot;
+
     private final Logger logger;
 
     private final UserService userService;
 
     public SetlangCommand(Logger logger, TelegramBot bot, String name) {
-        super(bot, name);
+        super(name);
+        this.bot = bot;
         this.logger = logger;
         this.userService = EOLBot.getUserService();
     }

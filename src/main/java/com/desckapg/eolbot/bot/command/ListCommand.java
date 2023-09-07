@@ -14,11 +14,14 @@ import java.util.stream.Collectors;
 
 public class ListCommand extends AbstractCommand {
 
+    private final TelegramBot bot;
+
     private final EOLService eolService;
     private final UserService userService;
 
     public ListCommand(TelegramBot bot, String name) {
-        super(bot, name);
+        super(name);
+        this.bot = bot;
         this.eolService = EOLBot.getEolService();
         this.userService = EOLBot.getUserService();
     }

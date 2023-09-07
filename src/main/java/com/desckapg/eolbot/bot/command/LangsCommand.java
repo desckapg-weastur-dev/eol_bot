@@ -11,8 +11,11 @@ import java.util.Locale;
 
 public class LangsCommand extends AbstractCommand {
 
+    private final TelegramBot bot;
+
     public LangsCommand(TelegramBot bot, String name) {
-        super(bot, name);
+        super(name);
+        this.bot = bot;
     }
 
 
