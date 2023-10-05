@@ -20,7 +20,7 @@ public class LangsCommand extends AbstractCommand {
 
 
     @Override
-    public void handle(Update update) {
+    public void execute(Update update, List<String> args) {
         List<String> languages = Localization.getLanguages();
         StringBuilder answerBuilder = new StringBuilder();
         for (int i = 0; i < languages.size(); i++) {

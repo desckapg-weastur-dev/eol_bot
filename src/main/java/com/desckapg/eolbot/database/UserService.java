@@ -1,12 +1,11 @@
 package com.desckapg.eolbot.database;
 
 import com.desckapg.eolbot.EOLBot;
-import com.desckapg.eolbot.database.pojo.User;
+import com.desckapg.eolbot.database.pojo.BotUser;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.result.UpdateResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +25,7 @@ public class UserService {
 
     private final MongoService mongoService;
 
-    private final LoadingCache<Long, User> users;
+    private final LoadingCache<Long, BotUser> users;
 
     public UserService() {
         this.logger = LogManager.getLogger("USER_REPOSITORY");
@@ -34,21 +33,21 @@ public class UserService {
         this.users = CacheBuilder.newBuilder()
                 .expireAfterAccess(Duration.ofMinutes(CLEANUP_DELAY))
                 .removalListener(notification -> {
-                    save((Long) notification.getKey(), (User) notification.getValue());
+                    save((Long) notification.getKey(), (BotUser) notification.getValue());
                 })
                 .build(new CacheLoader<>() {
                     @NotNull
                     @Override
-                    public User load(@NotNull Long tgID) {
+                    public BotUser load(@NotNull Long tgID) {
                         return getOrCreateUser(tgID);
                     }
                 });
         startCleanupTimer();
     }
 
-    public User getUser(Long tgID) {
+    public BotUser getUser(Long tgID) {
         logger.info("Request for a user data with ID {}", tgID);
-        User user = null;
+        BotUser user = null;
         try {
             user = users.get(tgID);
         } catch (ExecutionException e) {
@@ -57,7 +56,7 @@ public class UserService {
         return user;
     }
 
-    public CompletableFuture<User> getUserAsync(Long tgID) {
+    public CompletableFuture<BotUser> getUserAsync(Long tgID) {
         return CompletableFuture.supplyAsync(() -> getUser(tgID));
     }
 
@@ -71,18 +70,18 @@ public class UserService {
         }, TimeUnit.MINUTES.toMillis(CLEANUP_DELAY), TimeUnit.MINUTES.toMillis(CLEANUP_DELAY));
     }
 
-    private void save(Long tgID, User user) {
+    private void save(Long tgID, BotUser user) {
         mongoService.getUsersCollection().replaceOne(Filters.eq("tdID", tgID), user);
         logger.info("Updated {} info on Mongo", tgID);
     }
 
 
-    private User getOrCreateUser(Long tgID) {
-        User user = mongoService.getUsersCollection()
+    private BotUser getOrCreateUser(Long tgID) {
+        BotUser user = mongoService.getUsersCollection()
                 .find(Filters.eq("tgID", tgID)).first();
         if (user == null) {
             logger.info("Writing new user data with ID {}", tgID);
-            user = User.defaultData(tgID);
+            user = BotUser.defaultData(tgID);
             mongoService.getUsersCollection().insertOne(user);
         }
         return user;

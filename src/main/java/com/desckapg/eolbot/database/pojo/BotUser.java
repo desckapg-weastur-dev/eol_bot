@@ -5,7 +5,7 @@ import org.bson.codecs.pojo.annotations.BsonCreator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
 @Data
-public class User {
+public class BotUser {
 
     @BsonProperty("tgID")
     private final Long tgID;
@@ -14,14 +14,14 @@ public class User {
     private String language;
 
     @BsonCreator
-    public User(@BsonProperty("tgID") Long tgID,
-                @BsonProperty("lang") String language) {
+    public BotUser(@BsonProperty("tgID") Long tgID,
+                   @BsonProperty("lang") String language) {
         this.tgID = tgID;
         this.language = language;
     }
 
-    public static User defaultData(Long tgID) {
-        return new User(tgID, "en");
+    public static BotUser defaultData(Long tgID) {
+        return new BotUser(tgID, "en");
     }
 
 

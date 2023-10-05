@@ -1,8 +1,10 @@
 package com.desckapg.eolbot.bot.command;
 
-import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractCommand {
 
@@ -13,6 +15,14 @@ public abstract class AbstractCommand {
         this.name = name;
     }
 
-    public abstract void handle(Update update);
+
+    public void handle(Update update) {
+        List<String> args = Arrays.stream(update.message().text().split(" "))
+                .skip(1)
+                .toList();
+        execute(update, args);
+    }
+
+    public abstract void execute(Update update, List<String> args);
 
 }

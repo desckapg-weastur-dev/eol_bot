@@ -1,20 +1,18 @@
 package com.desckapg.eolbot.bot;
 
-import com.desckapg.eolbot.EOLBot;
 import com.desckapg.eolbot.bot.command.AbstractCommand;
 import com.desckapg.eolbot.bot.command.LangsCommand;
 import com.desckapg.eolbot.bot.command.ListCommand;
 import com.desckapg.eolbot.bot.command.SetlangCommand;
-import com.desckapg.eolbot.database.UserService;
-import com.desckapg.eolbot.external.EOLService;
 import com.google.common.collect.ImmutableMap;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.request.SendMessage;
-import io.github.cdimascio.dotenv.Dotenv;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Map;
 
 public class BotService {
 
@@ -23,7 +21,7 @@ public class BotService {
     @Getter
     private TelegramBot bot;
 
-    private ImmutableMap<String, AbstractCommand> commands;
+    private Map<String, AbstractCommand> commands;
 
     public BotService(String botToken) {
         this.logger = LogManager.getLogger("BOT");

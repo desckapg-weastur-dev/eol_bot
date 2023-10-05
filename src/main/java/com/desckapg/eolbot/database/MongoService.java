@@ -1,13 +1,11 @@
 package com.desckapg.eolbot.database;
 
-import com.desckapg.eolbot.EOLBot;
-import com.desckapg.eolbot.database.pojo.User;
+import com.desckapg.eolbot.database.pojo.BotUser;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import io.github.cdimascio.dotenv.Dotenv;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +32,7 @@ public class MongoService {
     private MongoDatabase database;
 
     @Getter
-    private MongoCollection<User> usersCollection;
+    private MongoCollection<BotUser> usersCollection;
 
     public MongoService(String user, String pwd, String host, String port, String dbName) {
         this.logger = LogManager.getLogger("MONGO");
@@ -74,11 +72,11 @@ public class MongoService {
             logger.info("Creating 'notifies' collection");
             database.createCollection("notifies");
         }
-        this.usersCollection = this.database.getCollection("users", User.class);
+        this.usersCollection = this.database.getCollection("users", BotUser.class);
     }
 
     private void configurePOJO() {
-        ClassModel<User> userModel = ClassModel.builder(User.class)
+        ClassModel<BotUser> userModel = ClassModel.builder(BotUser.class)
                 .conventions(List.of(Conventions.ANNOTATION_CONVENTION))
                 .build();
         CodecProvider codecProvider = PojoCodecProvider.builder()

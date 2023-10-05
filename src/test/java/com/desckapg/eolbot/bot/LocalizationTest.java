@@ -1,9 +1,11 @@
 package com.desckapg.eolbot.bot;
 
+import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+@NoArgsConstructor
 class LocalizationTest {
 
     @BeforeAll
