@@ -54,6 +54,7 @@ pmd {
     toolVersion = "7.0.0-rc3"
     ruleSetFiles = files("config/pmd/ruleset.xml")
     ruleSets = []
+    rulesMinimumPriority=5
     consoleOutput = true
     threads = 2
 }
