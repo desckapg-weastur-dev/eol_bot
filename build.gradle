@@ -1,25 +1,73 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'pmd'
+    id 'checkstyle'
 }
 
 compileJava.options.encoding='UTF-8'
-compileJava.sourceCompatibility=11
+compileJava.sourceCompatibility=17
+compileJava.targetCompatibility=17
 
-group 'by.De_SckapG'
-version '0.1'
+group 'com.desckapg'
+version '0.2.2'
+
+application {
+    mainClass = "com.desckapg.eolbot.EOLBot"
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation "com.google.guava:guava:31.1-jre"
+
+    implementation 'com.google.guava:guava:31.1-jre'
     implementation 'io.github.cdimascio:dotenv-java:2.3.2'
     implementation 'com.github.pengrad:java-telegram-bot-api:6.3.0'
+
+    implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+    implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0'
+
+    implementation 'org.mongodb:mongodb-driver-sync:4.9.1'
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    // Workaround fix for PMD7 support (github.com/gradle/gradle/issues/24502)
+    pmd 'net.sourceforge.pmd:pmd-ant:7.0.0-rc3'
+    pmd 'net.sourceforge.pmd:pmd-java:7.0.0-rc3'
 }
 
 test {
     useJUnitPlatform()
+}
+
+pmd {
+    toolVersion = "7.0.0-rc3"
+    ruleSetFiles = files("config/pmd/ruleset.xml")
+    ruleSets = []
+    rulesMinimumPriority=5
+    consoleOutput = true
+    threads = 2
+}
+
+checkstyle {
+    toolVersion = '10.12.3'
+}
+
+tasks.withType(Checkstyle).configureEach {
+    configFile = file("config/checkstyle/sun_checks.xml")
+    reports {
+        sarif.required = true
+        xml.required = false
+        html.required = false
+    }
 }

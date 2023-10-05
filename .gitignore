@@ -34,6 +34,7 @@ build/
 .gradletasknamecache
 gradle-app.setting
 !gradle-wrapper.jar
+gradle.properties
 
 ##############################
 ## IntelliJ
@@ -87,4 +88,5 @@ nb-configuration.xml
 ##############################
 ## OTHER
 ##############################
-.env
+src/main/resources/.env
+src/test/resources/.env
